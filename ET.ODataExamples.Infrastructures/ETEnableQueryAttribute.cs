@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ET.ODataExamples.Infrastructures
 {
-    public class ETEnableQueryAttribute : EnableQueryAttribute, IExceptionFilter
+    public class ETEnableQueryAttribute : EnableQueryAttribute
     {
         //Project dosyasına AspNetCore.Mvc ve Http için eklenmesi gereken satır aşağıdaki gibidir.
         //  <ItemGroup>
@@ -23,35 +23,11 @@ namespace ET.ODataExamples.Infrastructures
 
         public override IQueryable ApplyQuery(IQueryable query, ODataQueryOptions queryOptions)
         {
-            var res = queryOptions.ApplyTo(query);
-            return res;
+            return queryOptions.ApplyTo(query);
         }
         public override void ValidateQuery(HttpRequest request, ODataQueryOptions queryOptions)
         {
             base.ValidateQuery(request, queryOptions);
-        }
-        private bool AuthorizationIsOK()
-        {
-            return false;
-        }
-
-        public void OnException(ExceptionContext context)
-        {
-
-            var result = new AuthApiErrorModel
-            {
-                Errors = new System.Collections.Generic.List<Errors>() { new Errors { Code = "InternalServerError", Message = context.Exception.Message } }
-            };
-            //context.Result = new JsonResult(result);
-
-            Microsoft.AspNetCore.Mvc.Formatters.MediaTypeCollection mediaTypeCollection = new Microsoft.AspNetCore.Mvc.Formatters.MediaTypeCollection();
-            mediaTypeCollection.Add("application/json");
-
-            context.Result = new ObjectResult(result)
-            {
-                ContentTypes = mediaTypeCollection,
-                StatusCode = (int)StatusCodes.Status500InternalServerError,
-            };
         }
     }
 }

@@ -5,12 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.8" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+    <ProjectReference Include="..\..\ET.ODataExamples.Infrastructures\ET.ODataExamples.Infrastructures.csproj" />
+    <ProjectReference Include="..\..\ET.ODataExamples.Repositories\ET.ODataExamples.Repositories.csproj" />
+    <ProjectReference Include="..\..\ET.ODataExamples.Services\ET.ODataExamples.Services.csproj" />
+    <ProjectReference Include="..\..\ET.ODataExamples.Storage\ET.ODataExamples.Storage.csproj" />
   </ItemGroup>
 
 

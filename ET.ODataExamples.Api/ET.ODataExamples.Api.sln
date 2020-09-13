@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ET.ODataExamples.Repositori
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ET.ODataExamples.Infrastructures", "..\ET.ODataExamples.Infrastructures\ET.ODataExamples.Infrastructures.csproj", "{09578772-DD7F-4692-9A24-D71BA8F0C33D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ET.ODataExamples.Storage", "..\ET.ODataExamples.Storage\ET.ODataExamples.Storage.csproj", "{FD535A40-4AD8-4975-A12B-6D09B5E13E88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{09578772-DD7F-4692-9A24-D71BA8F0C33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09578772-DD7F-4692-9A24-D71BA8F0C33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09578772-DD7F-4692-9A24-D71BA8F0C33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD535A40-4AD8-4975-A12B-6D09B5E13E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD535A40-4AD8-4975-A12B-6D09B5E13E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD535A40-4AD8-4975-A12B-6D09B5E13E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD535A40-4AD8-4975-A12B-6D09B5E13E88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

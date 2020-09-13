@@ -1,15 +1,18 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using ET.ODataExamples.Storage.CustomAttributes;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace ET.ODataExamples.Api
+namespace ET.ODataExamples.Infrastructures
 {
+
     public class SwaggerRemoveVerbsFilter : IDocumentFilter
     {
         /// <summary>
@@ -22,7 +25,7 @@ namespace ET.ODataExamples.Api
             var methodss = swaggerDoc.Paths.Select(i => i.Value);
             Assembly assembly = typeof(Controller).Assembly;
             var thisAssemblyTypes = Assembly.GetExecutingAssembly().GetTypes().ToList();
-            var odatacontrollers = thisAssemblyTypes.Where(t => t.BaseType == typeof(BaseController)).ToList();
+            var odatacontrollers = thisAssemblyTypes.Where(t => t.BaseType == typeof(ODataController)).ToList();
 
             foreach (var odataContoller in odatacontrollers)  // this the OData controllers in the API
             {
@@ -61,7 +64,7 @@ namespace ET.ODataExamples.Api
                             path = path + "/{bankEftCode}";
                     }
 
-                    if (method.IsDefined(typeof(NEnableQueryAttribute)))
+                    if (method.IsDefined(typeof(ETEnableQueryAttribute)))
                     {
                         AddOdataQuery(op);
                     }
@@ -85,26 +88,11 @@ namespace ET.ODataExamples.Api
                         operationType = OperationType.Delete;
 
                     op.OperationId = operationType.ToString();
-
-                    // This hard-coded for now, set it to use XML comments if you want
-
-                    var summary = method.GetCustomAttribute(typeof(SummaryAttribute), false);
-
-                    op.Summary = summary == null ? "" : (summary as SummaryAttribute).Name;
+                    var summary = method.GetCustomAttribute(typeof(Summary), false);
+                    op.Summary = summary == null ? "" : (summary as Summary).Name;
                     op.Description = "";
 
                     op.Deprecated = false;
-
-                    op.Parameters.Add(new OpenApiParameter
-                    {
-                        Name = "tenantId",
-                        In = ParameterLocation.Header,
-                        Required = false,
-                        Schema = new OpenApiSchema
-                        {
-                            Type = "string"
-                        }
-                    });
 
                     var ResponseAttributes = method.GetCustomAttributes(typeof(ProducesResponseTypeAttribute), false);
 
@@ -116,7 +104,6 @@ namespace ET.ODataExamples.Api
                         var type = ((ProducesResponseTypeAttribute)ResponseAttribute).Type;
 
                         var statusCode = ((ProducesResponseTypeAttribute)ResponseAttribute).StatusCode;
-                        //response.Schema = new Schema { Type = "array", Items = context.SchemaRegistry.GetOrRegister(type), Ref = $"#/definitions/{type.Name}" };
                         response.Description = Enum.IsDefined(typeof(HttpStatusCode), statusCode).ToString();
                         op.Responses.Add(statusCode.ToString(), response);
                     }
@@ -225,7 +212,7 @@ namespace ET.ODataExamples.Api
                     Type = "string"
                 }
             });
-        }       
+        }
 
 
     }

@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ET.ODataExamples.Repositories\ET.ODataExamples.Repositories.csproj" />
+    <ProjectReference Include="..\ET.ODataExamples.Storage\ET.ODataExamples.Storage.csproj" />
+  </ItemGroup>
+
 </Project>
